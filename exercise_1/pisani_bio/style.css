@@ -1,0 +1,29 @@
+body{
+    color: black; 
+    background-color: blueviolet; 
+    background-image: url('https://imgv3.fotor.com/images/share/Free-blue-gradient-pattern-background-from-Fotor.jpg');
+    background-size: cover;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+h1,h2,h3,h4,h5,h6{
+    color: darkblue;
+    text-align: center;
+}
+p{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+#wrapper{
+    width:fit-content;
+    display: flex;
+    margin:auto;
+    border: dotted, lightcoral;
+    padding: 5px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align:justify;
+}
+img{
+    padding: 10px
+}

@@ -1,0 +1,83 @@
+/* CSS Document */
+
+html, body {
+	
+	margin: 0 auto;
+	font-family: 'Eater';
+	font-size: 20px;
+	background-image: url('https://images.pexels.com/photos/10932618/pexels-photo-10932618.jpeg');
+	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: darkmagenta;
+	 }
+
+@media screen and (max-width: 768px) {
+	html, body {
+		background-size: cover;  /* Make sure it still covers on mobile */
+		background-position: center center;  /* Keep it centered */
+	}
+}
+h1 {
+	margin: 2px;
+	font-family: 'Creepster';
+}
+	
+button {
+	font-size: 15px;
+	font-weight: bold;
+	padding: 8px;
+	font-family: 'Creepster';
+
+}
+	
+div#content {
+    width: 700px;
+    margin:0 auto;
+	padding: 20px;
+	border: 1px solid #ccc ;
+}
+	
+div#controls {
+	text-align: right; 
+}
+	
+	
+div#controls button {
+	margin-left: 20px; 
+}
+	
+
+	
+div#gamespace {
+	margin: 20px;
+	padding: 10px;
+	height: 500px;
+	background-color: darkred;
+	border: 2px ridge black; 
+	cursor: url('img/tinypeter.png') 16 16, auto;
+	position: relative;
+}
+
+
+img {
+	width: 120px;
+}
+
+.timer_message {
+    display: none;
+	margin: 0 auto;
+	font-family: 'Eater';
+	font-size: 20px;
+	margin-top: 20px;
+	color: yellow;
+}
+
+.score_message {
+    display: none;
+	margin: 0 auto;
+	font-family: 'Eater';
+	font-size: 20px;
+	margin-top: 20px;
+	color: yellow;
+}

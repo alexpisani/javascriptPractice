@@ -1,0 +1,171 @@
+<!-- 
+		Name: Alex Pisani
+		Date: November 16 2024
+		Class: CSCI2447, Javascript Fundamentals
+		Project 5
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>ZACC: Get Your Chicken Back!</title>
+	<link rel="icon" type="image/x-icon" href="img/faviconpeter.png">
+	<link href="css/game.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Creepster">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eater">
+   </head>
+   <body>
+	 <div id="content">
+	   <h1>Zombie Apocalypse Chickin' Clickin'</h1>
+	   <p id="directions">
+		 Oh no! The zombie apocalypse *just* happened, and now Peter Chikkin has stolen all of your chicken!
+		 Click on Peter to get your chicken back, but avoid clicking on the zombies because they will take your chicken.
+		 If you get all 10 pieces of chicken back you win! But if you have no chicken and click a zombie, you get eaten - darn!
+	   </p>
+ 
+	   <div id="controls">
+		 <span id="score">0 pts</span>
+		 <span id="timer">30 seconds left</span>
+		 <button type="button" id="start_button">Start!</button>
+	   </div>
+ 
+	   <div id="gamespace"></div>
+	 </div>
+ 
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 <script>
+	   let userName = prompt("Hello gamer! Please enter your first name: ");
+	   window.onload = function playerstart() {
+		 alert("Are you ready to play the game " + userName + "?");
+	   }
+ 
+	   let score = 0;
+	   let timer = 30;
+	   let timerInterval;
+	   let imageInterval;
+
+	   function incrementScore() {
+		 score++;
+		 $('#score').html(score + ' PTS');
+		 if (score === 10) { //Stop the game when 10 points are reached
+            alert("Holy Freakin' Crap, you got all your chicken back! YOU WIN!"); // alert when you win the game
+            clearInterval(timerInterval); // Stop the timer
+            clearInterval(imageInterval); // Stop the image spawning
+			resetGame(); //Resets game
+			clearImages(); //Clears images
+            $('#start_button').prop('disabled', false); // Enable the start button again to allow reset
+        }
+	   }
+ 
+	   function decrementScore() {
+		 score--;
+		 $('#score').html(score + ' PTS');
+	   }
+
+ 
+	   function decrementTime() {
+		 timer--;
+		 $('#timer').html(timer + ' seconds left');
+		 if (timer <= 0) {
+		   clearInterval(timerInterval); //Stop the timer
+		   clearInterval(imageInterval); //Stop the image spawning
+		   clearImages(); //Clears images
+		   alert("Darn, he escaped with the Chicken! Louis is gonna be freakin' pissed! Game Over"); //alert when you lose the game
+		   resetGame(); //Resets game
+		 }
+	   }
+
+	   function getRandomInterval() {
+       	 return Math.floor(Math.random() * (1001)) + 500; // Random time between 500 and 1500ms
+}
+ 
+	   function addImage() {
+		 let gamespaceWidth = $('#gamespace').width();
+		 let gamespaceHeight = $('#gamespace').height();
+ 
+		 let chickenImage = $('<img src="img/chickenpeter.png" class="image" alt="Peter Chikkin">');
+		 let zombieImage = $('<img src="img/weirdguy.png" class="image" alt="Zombie">');
+
+		 $('#gamespace').append(chickenImage).append(zombieImage);
+ 
+		 // Set random positions for chicken and zombie images
+		 let randomXChicken = Math.floor(Math.random() * (gamespaceWidth - chickenImage.width()));
+		 let randomYChicken = Math.floor(Math.random() * (gamespaceHeight - chickenImage.height()));
+ 
+		 let randomXZombie = Math.floor(Math.random() * (gamespaceWidth - zombieImage.width()));
+		 let randomYZombie = Math.floor(Math.random() * (gamespaceHeight - zombieImage.height()));
+ 
+		 // Set the position for each image
+		 chickenImage.css({
+		   position: 'absolute',
+		   left: randomXChicken + 'px',
+		   top: randomYChicken + 'px'
+		 });
+ 
+		 zombieImage.css({
+		   position: 'absolute',
+		   left: randomXZombie + 'px',
+		   top: randomYZombie + 'px'
+		 });
+ 
+		 // Remove images after a random time
+		 setTimeout(function() {
+		   chickenImage.remove();
+		   zombieImage.remove();
+		 }, getRandomInterval());
+	   }
+ 
+	   function startGame() {
+		 timerInterval = setInterval(decrementTime, 1000);  // Decrement time every 1 second
+		 imageInterval = setInterval(addImage, getRandomInterval()); //Add images at random times 
+
+		 $('#start_button').prop('disabled', true);
+	   }
+
+	   function clearImages() {
+		 $('#gamespace').empty(); // Removes all images from the gamespace
+	   }
+	   
+	   function resetGame() {
+		 score = 0;
+		 timer = 30;
+		 $('#score').html('0 pts'); // Resets score
+		 $('#timer').html('30 seconds left'); //Resets timer
+		 $('#start_button').prop('disabled', false); // Re-enable the start button
+	   }
+
+	   $(document).ready(function() {
+		 $('#start_button').click(function() {
+		   startGame();
+		 });
+ 
+		 $('#gamespace').on('click', 'img', function() {
+		   if ($(this).attr('alt') === 'Peter Chikkin'){
+			 incrementScore();
+			 $(this).remove();
+		   }
+		   if ($(this).attr('alt') === 'Zombie'){
+			 decrementScore();
+			 $(this).remove();
+		   }
+		 });
+ 
+		 $('#start_button').css({
+		   'width': '70px',
+		   'height': '30px',
+		   'font-size': '18px',
+		   'font-family': 'Creepster',
+		   'background-color': '#8B0000'
+		 });
+	   });
+	 </script>
+	 <script>
+		$(document).ready(function() {
+      	  $('footer').load('load.html');
+    	});
+	 </script>
+	<footer></footer>
+   </body>
+ </html>
